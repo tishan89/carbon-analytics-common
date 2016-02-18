@@ -33,6 +33,7 @@ public class ThrottleConstants {
     public static final String ELIGIBILITY_QUERY = "eligibilityQuery";
     public static final String DECISION_QUERY = "decisionQuery";
     public static final String CEP_CONFIG_XML = "global-CEP-config.xml";
+    public static final String THROTTLE_COMMON_CONFIG_XML = "common_throttle_config.xml";
     public static final String CONFIG_ELEMENT = "GlobalCEPConfig";
     public static final String HOST_NAME = "hostName";
     public static final String TCP_PORT = "binaryTCPPort";
@@ -41,4 +42,9 @@ public class ThrottleConstants {
     public static final String PASSWORD = "password";
     public static final String STREAM_NAME = "streamName";
     public static final String STREAM_VERSION = "streamVersion";
+    public static final String REQUEST_STREAM = "RequestStream";
+    public static final String ELIGIBILITY_STREAM = "EligibilityStream";
+    public static final String EVENT_TABLE = "EventTable";
+    public static final String LOCAL_QUERY = "LocalQuery";
+    public static final String GLOBAL_QUERY = "GlobalQuery";
 }

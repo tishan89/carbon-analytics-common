@@ -29,6 +29,7 @@ import org.wso2.carbon.ndatasource.core.DataSourceManager;
 import org.wso2.carbon.throttle.event.core.exception.ThrottleConfigurationException;
 import org.wso2.carbon.throttle.event.core.internal.CEPConfig;
 import org.wso2.carbon.throttle.event.core.internal.Policy;
+import org.wso2.carbon.throttle.event.core.internal.ThrottleConfig;
 import org.wso2.carbon.throttle.event.core.internal.ds.ThrottleServiceValueHolder;
 import org.wso2.carbon.utils.ServerConstants;
 import org.wso2.siddhi.core.SiddhiManager;
@@ -149,6 +150,45 @@ public class ThrottleHelper {
         return new CEPConfig(hostNameElement.getText(), tcpPortElement.getText(), sslPortElement.getText(),
                 usernameElement.getText(), passwordElement.getText(), streamNameElement.getText(),
                 streamVersionElement.getText());
+    }
+
+    public static ThrottleConfig loadThrottleConfig(String path) throws ThrottleConfigurationException {
+        OMElement commonConfigElement = loadConfigXML(path);
+
+        OMElement requestStreamElement;
+        OMElement eligibilityStreamElement;
+        OMElement eventTableElement;
+        OMElement localQueryElement;
+        OMElement globalQueryElement;
+
+        if ((requestStreamElement = commonConfigElement.getFirstChildWithName(new QName(ThrottleConstants
+                .REQUEST_STREAM))) == null) {
+            throw new ThrottleConfigurationException("Invalid config element with no request stream in " +
+                    ThrottleConstants.THROTTLE_COMMON_CONFIG_XML);
+        }
+        if ((eligibilityStreamElement = commonConfigElement.getFirstChildWithName(new QName(ThrottleConstants
+                .ELIGIBILITY_STREAM))) == null) {
+            throw new ThrottleConfigurationException("Invalid config element with no eligibility stream in " +
+                    ThrottleConstants.THROTTLE_COMMON_CONFIG_XML);
+        }
+        if ((eventTableElement = commonConfigElement.getFirstChildWithName(new QName(ThrottleConstants
+                .EVENT_TABLE))) == null) {
+            throw new ThrottleConfigurationException("Invalid config element with no event table in " +
+                    ThrottleConstants.THROTTLE_COMMON_CONFIG_XML);
+        }
+        if ((localQueryElement = commonConfigElement.getFirstChildWithName(new QName(ThrottleConstants
+                .LOCAL_QUERY))) == null) {
+            throw new ThrottleConfigurationException("Invalid config element with no local query in " +
+                    ThrottleConstants.THROTTLE_COMMON_CONFIG_XML);
+        }
+        if ((globalQueryElement = commonConfigElement.getFirstChildWithName(new QName(ThrottleConstants
+                .GLOBAL_QUERY))) == null) {
+            throw new ThrottleConfigurationException("Invalid config element with no global query in " +
+                    ThrottleConstants.THROTTLE_COMMON_CONFIG_XML);
+        }
+
+        return new ThrottleConfig(requestStreamElement.getText(), eligibilityStreamElement.getText(),
+                eventTableElement.getText(), localQueryElement.getText(), globalQueryElement.getText());
     }
 
     /**

@@ -24,7 +24,7 @@ public interface ThrottlerService {
     /**
      * Returns whether the given throttleRequest is throttled.
      *
-     * @param throttleRequest User throttleRequest to APIM which needs to be checked whether throttled
+     * @param throttleRequest User request which needs to be checked whether throttled
      * @return Throttle status for current throttleRequest
      */
     public boolean isThrottled(Object[] throttleRequest);
